@@ -22,7 +22,7 @@ public class EnrollmentController {
     }
 
     @PutMapping("/{id}")
-    public void updateEnrollment(@PathVariable(value = "id") Integer id
+    public void updateEnrollment(@PathVariable(value = "id") String id
             , @RequestBody Enrollment enrollment) throws ChangeSetPersister.NotFoundException {
         enrollmentService.updateEnrollment(id, enrollment);
     }

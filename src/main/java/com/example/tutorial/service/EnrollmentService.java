@@ -20,7 +20,7 @@ public class EnrollmentService {
         enrollmentRepository.save(enrollment);
     }
 
-    public void updateEnrollment(Integer id, Enrollment enrollment) {
+    public void updateEnrollment(String id, Enrollment enrollment) {
         Enrollment e = enrollmentRepository.findByEnrollmentId(id);
         e.setUser(enrollment.getUser());
         e.setCourse(enrollment.getCourse());
