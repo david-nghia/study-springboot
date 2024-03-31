@@ -2,6 +2,7 @@ package com.example.tutorial.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Builder
@@ -13,8 +14,9 @@ import lombok.*;
 @Table(name = "enrollment")
 public class Enrollment {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
+    private String id;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

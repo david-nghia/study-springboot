@@ -24,17 +24,4 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public void delete(Integer id) {
-        userRepository.deleteById(id);
-    }
-
-    public User updateUser(Integer id, User updatedUser) throws ChangeSetPersister.NotFoundException {
-        return userRepository.findById(id)
-                .map(user -> {
-                    user.setUsername(updatedUser.getUsername());
-                    user.setUser_password(updatedUser.getUser_password());
-                    return userRepository.save(user);
-                })
-                .orElseThrow(() -> new ChangeSetPersister.NotFoundException());
-    }
 }
