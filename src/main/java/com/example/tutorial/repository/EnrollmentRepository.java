@@ -8,8 +8,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface EnrollmentRepository extends JpaRepository<Enrollment, Integer> {
+public interface EnrollmentRepository extends JpaRepository<Enrollment, String> {
     @Transactional
     @Query("SELECT e FROM Enrollment e WHERE e.id = :userId")
-    Enrollment findByEnrollmentId(@Param("userId") int userId);
+    Enrollment findByEnrollmentId(@Param("userId") String userId);
 }

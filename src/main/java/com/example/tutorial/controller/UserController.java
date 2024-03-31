@@ -27,13 +27,4 @@ public class UserController {
         userService.saveUser(user);
     }
 
-    @PutMapping("/{id}")
-    public void updateUser(@PathVariable Integer id, @RequestBody User user) throws ChangeSetPersister.NotFoundException {
-        userService.updateUser(id, user);
-    }
-
-    @DeleteMapping("/{id}")
-    public void deleteUser(@PathVariable Integer id){
-        userService.delete(id);
-    }
 }
