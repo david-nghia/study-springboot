@@ -1,20 +1,15 @@
 package com.tech.springboot.controller;
 
-import com.tech.springboot.model.Enrollment;
+import com.tech.springboot.entity.Enrollment;
 import com.tech.springboot.service.EnrollmentService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/enrollments")
+@RequestMapping("/api/v1/enrollments")
+@RequiredArgsConstructor
 public class EnrollmentController {
     private final EnrollmentService enrollmentService;
-
-    @Autowired
-    public EnrollmentController(EnrollmentService enrollmentService) {
-        this.enrollmentService = enrollmentService;
-    }
 
     @PostMapping()
     public void createEnrollment(@RequestBody Enrollment enrollment) {
@@ -23,7 +18,7 @@ public class EnrollmentController {
 
     @PutMapping("/{id}")
     public void updateEnrollment(@PathVariable(value = "id") String id
-            , @RequestBody Enrollment enrollment) throws ChangeSetPersister.NotFoundException {
+            , @RequestBody Enrollment enrollment) {
         enrollmentService.updateEnrollment(id, enrollment);
     }
 }

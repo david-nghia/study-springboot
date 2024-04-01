@@ -1,20 +1,16 @@
 package com.tech.springboot.service;
 
-import com.tech.springboot.model.Enrollment;
+import com.tech.springboot.entity.Enrollment;
 import com.tech.springboot.repository.EnrollmentRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 
 @Service
+@RequiredArgsConstructor
 public class EnrollmentService {
 
     private final EnrollmentRepository enrollmentRepository;
-
-    @Autowired
-    public EnrollmentService(EnrollmentRepository enrollmentRepository) {
-        this.enrollmentRepository = enrollmentRepository;
-    }
 
     public void saveEnrollment(Enrollment enrollment) {
         enrollmentRepository.save(enrollment);

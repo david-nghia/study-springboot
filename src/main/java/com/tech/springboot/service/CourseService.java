@@ -1,6 +1,6 @@
 package com.tech.springboot.service;
 
-import com.tech.springboot.model.Course;
+import com.tech.springboot.entity.Course;
 import com.tech.springboot.repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

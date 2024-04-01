@@ -8,11 +8,11 @@
         <version>3.2.4</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.example</groupId>
+    <groupId>com.tech</groupId>
     <artifactId>study-springboot</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>Study Springboot</name>
-    <description>tutorial</description>
+    <description>Study Example SpringBoot Framework</description>
     <properties>
         <java.version>17</java.version>
     </properties>
@@ -45,10 +45,6 @@
             <artifactId>lombok</artifactId>
             <version>1.18.30</version>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
     </dependencies>
 

@@ -1,6 +1,6 @@
 package com.tech.springboot.repository;
 
-import com.tech.springboot.model.Enrollment;
+import com.tech.springboot.entity.Enrollment;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

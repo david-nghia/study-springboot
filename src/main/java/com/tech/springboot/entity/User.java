@@ -1,4 +1,5 @@
-package com.tech.springboot.model;
+package com.tech.springboot.entity;
+
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -11,14 +12,16 @@ import org.hibernate.annotations.GenericGenerator;
 @Getter
 @Setter
 
-@Table(name = "course")
-public class Course {
+@Table(name = "user")
+public class User {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
     private String id;
-    @Column(name = "course_name")
-    private String course_name;
-    @Column(name = "course_description")
-    private String course_description;
+
+    @Column(name = "username")
+    private String username;
+
+    @Column(name = "user_password")
+    private String userPassword;
 }
