@@ -1,0 +1,21 @@
+application:
+  security:
+    public-paths:
+      - GET::/public/**
+      - GET::/actuator/**
+
+spring:
+  profiles:
+    active: dev
+
+jwt:
+  secret: bHDrS4XCmC7eK7LzMhzH5Wadv62XveDM4GfbVjOn
+  expire-length: 300
+  refresh-expiration-date: 600
+  one-token-mode: false
+
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG

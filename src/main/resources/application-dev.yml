@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    username: study_sp
+    url: jdbc:postgresql://103.106.104.57:5432/study_sp
+    password: ky5kesaMXcJmFLB5
+  jpa:
+    properties:
+      hibernate:
+        default_schema: app
+    hibernate:
+      ddl-auto: update
+    show-sql: true

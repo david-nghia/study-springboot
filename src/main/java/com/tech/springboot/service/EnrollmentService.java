@@ -1,7 +1,7 @@
-package com.example.tutorial.service;
+package com.tech.springboot.service;
 
-import com.example.tutorial.model.Enrollment;
-import com.example.tutorial.repository.EnrollmentRepository;
+import com.tech.springboot.model.Enrollment;
+import com.tech.springboot.repository.EnrollmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

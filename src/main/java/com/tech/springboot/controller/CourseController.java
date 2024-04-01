@@ -1,7 +1,7 @@
-package com.example.tutorial.controller;
+package com.tech.springboot.controller;
 
-import com.example.tutorial.model.Course;
-import com.example.tutorial.service.CourseService;
+import com.tech.springboot.model.Course;
+import com.tech.springboot.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

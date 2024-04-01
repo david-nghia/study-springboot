@@ -1,7 +1,7 @@
-package com.example.tutorial.service;
+package com.tech.springboot.service;
 
-import com.example.tutorial.model.Course;
-import com.example.tutorial.repository.CourseRepository;
+import com.tech.springboot.model.Course;
+import com.tech.springboot.repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

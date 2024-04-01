@@ -1,9 +1,8 @@
-package com.example.tutorial.service;
+package com.tech.springboot.service;
 
-import com.example.tutorial.model.User;
-import com.example.tutorial.repository.UserRepository;
+import com.tech.springboot.model.User;
+import com.tech.springboot.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

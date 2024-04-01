@@ -1,7 +1,7 @@
-package com.example.tutorial.controller;
+package com.tech.springboot.controller;
 
-import com.example.tutorial.model.Enrollment;
-import com.example.tutorial.service.EnrollmentService;
+import com.tech.springboot.model.Enrollment;
+import com.tech.springboot.service.EnrollmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.web.bind.annotation.*;

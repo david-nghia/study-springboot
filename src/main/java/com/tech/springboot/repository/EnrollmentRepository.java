@@ -1,6 +1,6 @@
-package com.example.tutorial.repository;
+package com.tech.springboot.repository;
 
-import com.example.tutorial.model.Enrollment;
+import com.tech.springboot.model.Enrollment;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

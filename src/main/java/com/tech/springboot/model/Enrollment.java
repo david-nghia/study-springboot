@@ -1,4 +1,4 @@
-package com.example.tutorial.model;
+package com.tech.springboot.model;
 
 import jakarta.persistence.*;
 import lombok.*;
