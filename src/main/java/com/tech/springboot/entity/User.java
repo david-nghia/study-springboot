@@ -5,23 +5,27 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.util.Date;
+import java.util.UUID;
+
 @Entity
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
+@Data
 
 @Table(name = "user")
 public class User {
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
-    private String id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
 
     @Column(name = "username")
     private String username;
 
-    @Column(name = "user_password")
-    private String userPassword;
+    @Column(name = "password")
+    private String password;
+
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "date_of_birth")
+    private Date dateOfBirth;
 }

@@ -1,12 +1,12 @@
 package com.tech.springboot.controller;
 
+import com.tech.springboot.dto.CourseResponseDTO;
 import com.tech.springboot.entity.Course;
 import com.tech.springboot.service.CourseService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.List;
 
 @RestController
@@ -16,7 +16,8 @@ public class CourseController {
     private final CourseService courseService;
 
     @GetMapping()
-    public List<Course> getAllCourses() {
-        return courseService.getAllCourse();
+    public List<CourseResponseDTO> getAllCourses() {
+        return courseService.getAllCourses();
     }
+
 }

@@ -4,19 +4,17 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.util.Date;
+import java.util.UUID;
+
 @Entity
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
+@Data
 
 @Table(name = "enrollment")
 public class Enrollment {
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
-    private String id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -28,4 +26,13 @@ public class Enrollment {
 
     @Column(name = "status")
     private String status;
+
+    @Column(name = "enrollment_date")
+    private Date enrollmentDate;
+
+    @Column(name = "completion_date")
+    private Date completionDate;
+
+    @Column(name = "note")
+    private String note;
 }
