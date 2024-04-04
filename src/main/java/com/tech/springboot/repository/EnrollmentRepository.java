@@ -11,7 +11,5 @@ import java.util.UUID;
 
 @Repository
 public interface EnrollmentRepository extends JpaRepository<Enrollment, UUID> {
-    @Transactional
-    @Query("SELECT e FROM Enrollment e WHERE e.id = :userId")
-    Enrollment findByEnrollmentId(@Param("userId") String userId);
+
 }
