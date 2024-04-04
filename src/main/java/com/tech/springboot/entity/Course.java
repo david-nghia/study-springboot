@@ -2,7 +2,6 @@ package com.tech.springboot.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
 
 import java.util.Date;
 import java.util.UUID;

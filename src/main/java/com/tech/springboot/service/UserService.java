@@ -5,8 +5,7 @@ import com.tech.springboot.entity.User;
 import com.tech.springboot.mapper.UserMapper;
 import com.tech.springboot.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;

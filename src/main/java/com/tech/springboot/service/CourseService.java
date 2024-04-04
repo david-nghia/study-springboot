@@ -5,14 +5,10 @@ import com.tech.springboot.entity.Course;
 import com.tech.springboot.mapper.CourseMapper;
 import com.tech.springboot.repository.CourseRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
+
 import java.util.List;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor

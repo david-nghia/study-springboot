@@ -2,12 +2,13 @@ package com.tech.springboot.controller;
 
 import com.tech.springboot.dto.EnrollmentCreateDTO;
 import com.tech.springboot.dto.EnrollmentUpdateDTO;
-import com.tech.springboot.entity.Enrollment;
+import com.tech.springboot.dto.base.RestResponseWrapper;
 import com.tech.springboot.service.EnrollmentService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.ParseException;
 import java.util.UUID;
 
 @RestController
@@ -17,13 +18,27 @@ public class EnrollmentController {
     private final EnrollmentService enrollmentService;
 
     @PostMapping()
-    public void createEnrollment(@RequestBody EnrollmentCreateDTO enrollmentCreateDTO) {
-        enrollmentService.saveEnrollment(enrollmentCreateDTO);
+    public RestResponseWrapper<?> createEnrollment(@RequestBody EnrollmentCreateDTO enrollmentCreateDTO) {
+        try {
+            enrollmentService.saveEnrollment(enrollmentCreateDTO);
+            return new RestResponseWrapper<>("Enrollment created successfully",
+                    HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        } catch (Exception e) {
+            return new RestResponseWrapper<>("Failed to create Enrollment",
+                    HttpStatus.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()));
+        }
     }
 
     @PutMapping("/{id}")
-    public void updateEnrollment(@PathVariable(value = "id") UUID id
+    public RestResponseWrapper<?> updateEnrollment(@PathVariable(value = "id") UUID id
             , @RequestBody EnrollmentUpdateDTO enrollmentUpdateDTO) {
-        enrollmentService.updateEnrollment(id, enrollmentUpdateDTO);
+        try {
+            enrollmentService.updateEnrollment(id, enrollmentUpdateDTO);
+            return new RestResponseWrapper<>("Enrollment updated successfully",
+                    HttpStatusCode.valueOf(HttpStatus.OK.value()));
+        } catch (Exception e) {
+            return new RestResponseWrapper<>("Failed to update Enrollment",
+                    HttpStatus.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()));
+        }
     }
 }

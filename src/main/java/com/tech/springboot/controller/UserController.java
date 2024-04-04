@@ -1,6 +1,7 @@
 package com.tech.springboot.controller;
 
 import com.tech.springboot.dto.UserResponseDTO;
+import com.tech.springboot.dto.base.RestResponseWrapper;
 import com.tech.springboot.entity.User;
 import com.tech.springboot.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -15,13 +16,8 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping()
-    public List<UserResponseDTO> getAllUsers() {
-        return userService.getAllUsers();
-    }
-
-    @PostMapping()
-    public void createUser(@RequestBody User user) {
-        userService.saveUser(user);
+    public RestResponseWrapper<List<UserResponseDTO>> getAllUsers() {
+        return new RestResponseWrapper<>(userService.getAllUsers());
     }
 
 }

@@ -1,6 +1,5 @@
 package com.tech.springboot.dto;
 
-import jakarta.persistence.Column;
 import lombok.Data;
 
 import java.util.Date;
