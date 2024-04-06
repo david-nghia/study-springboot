@@ -5,13 +5,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
+import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ListUserResponseDTO {
-    private List<UserResponseDTO> users;
-    private Meta meta;
+public class Meta implements Serializable {
+    private Integer count;
+    private Integer limit;
+    private Integer offset;
+    private Integer totalItem;
 }

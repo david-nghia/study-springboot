@@ -1,11 +1,16 @@
 package com.tech.springboot.service;
 
+import com.tech.springboot.dto.ListUserResponseDTO;
+import com.tech.springboot.dto.Meta;
 import com.tech.springboot.dto.UserResponseDTO;
 import com.tech.springboot.entity.User;
 import com.tech.springboot.mapper.UserMapper;
 import com.tech.springboot.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,17 +20,19 @@ import java.util.List;
 public class UserService {
     private final UserRepository userRepository;
 
-    public List<UserResponseDTO> getAllUsers(){
-
-        return buildListUserResponse(userRepository.findAll());
+    public ListUserResponseDTO getAllUsers(int offset, int limit) {
+        PageRequest pageRequest = PageRequest.of(offset, limit, Sort.by("username"));
+        Page<User> userPage = userRepository.findAll(pageRequest);
+        return buildListUserResponse(userPage, offset, limit);
     }
 
-    public void saveUser(User user){
-        userRepository.save(user);
-    }
-
-    private List<UserResponseDTO> buildListUserResponse(List<User> users){
-        List<UserResponseDTO> userResponseDTOS = UserMapper.INSTANCE.toDTOs(users);
-        return userResponseDTOS;
+    private ListUserResponseDTO buildListUserResponse(Page<User> userPage, int offset, int limit) {
+        List<UserResponseDTO> users = UserMapper.INSTANCE.toDTOs(userPage.getContent());
+        Meta meta = new Meta(userPage.getNumberOfElements(), limit, offset,
+                (int) userPage.getTotalElements());
+        return ListUserResponseDTO.builder()
+                .users(users)
+                .meta(meta)
+                .build();
     }
 }

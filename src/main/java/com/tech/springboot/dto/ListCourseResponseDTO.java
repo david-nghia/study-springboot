@@ -8,10 +8,10 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class ListUserResponseDTO {
-    private List<UserResponseDTO> users;
+public class ListCourseResponseDTO {
+    private List<CourseResponseDTO> courses;
     private Meta meta;
 }
