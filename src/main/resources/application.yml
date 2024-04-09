@@ -13,6 +13,8 @@ application:
     public-paths:
       - GET::/api/v1/users/**
       - GET::/api/v1/courses/**
+      - POST::/authenticate/**
+      - POST::/refresh/**
 
 jwt:
   secret: bHDrS4XCmC7eK7LzMhzH5Wadv62XveDM4GfbVjOn
