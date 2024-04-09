@@ -7,3 +7,15 @@ logging:
     org:
       springframework:
         security: DEBUG
+
+application:
+  security:
+    public-paths:
+      - GET::/api/v1/users/**
+      - GET::/api/v1/courses/**
+
+jwt:
+  secret: bHDrS4XCmC7eK7LzMhzH5Wadv62XveDM4GfbVjOn
+  expire-length: 300
+  refresh-expiration-date: 600
+  one-token-mode: false
