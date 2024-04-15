@@ -15,6 +15,15 @@ application:
       - GET::/api/v1/courses/**
       - POST::/authenticate/**
       - POST::/refresh/**
+      - GET::/swagger-ui/**
+      - GET::/v3/api-docs/**
+    ignore-paths:
+      - /v2/api-docs
+      - /v3/api-docs
+      - /swagger-ui/**
+      - /swagger-resources/**
+      - /*/swagger-resources/**
+      - /*/v2/api-docs
 
 jwt:
   secret: bHDrS4XCmC7eK7LzMhzH5Wadv62XveDM4GfbVjOn

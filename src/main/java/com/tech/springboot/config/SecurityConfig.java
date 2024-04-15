@@ -79,7 +79,8 @@ public class SecurityConfig {
             populateIgnorePaths().forEach(
                     (method, url) -> auth.requestMatchers(HttpMethod.valueOf(method),
                             url.toArray(String[]::new)).permitAll());
-            // auth.requestMatchers(POST, "/v1/abcxyz").permitAll();
+//             auth.requestMatchers(POST, "/v1/abcxyz").permitAll();
+//             auth.requestMatchers(GET, "/api/v1/courses").permitAll();
             auth.anyRequest().hasAuthority(AUTH_ROLE);
         };
     }
