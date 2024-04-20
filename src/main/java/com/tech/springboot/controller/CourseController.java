@@ -1,41 +1,22 @@
 package com.tech.springboot.controller;
 
-import com.tech.springboot.dto.ListCourseResponseDTO;
-import com.tech.springboot.dto.base.RestResponseWrapper;
+import com.fpt.training.aio.lending.api.CourseApi;
+import com.fpt.training.aio.lending.model.CourseResponseDto;
 import com.tech.springboot.service.CourseService;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/courses")
-@RequiredArgsConstructor
-public class CourseController {
-    private final CourseService courseService;
-    @Operation(
-            description = "Get endpoint for course",
-            summary = "This is a summary for course get endpoint",
-            responses = {
-                    @ApiResponse(
-                            description = "Success",
-                            responseCode = "200"
-                    ),
-                    @ApiResponse(
-                            description = "UnAuthorized",
-                            responseCode = "401"
-                    ),
-                    @ApiResponse(
-                            description = "Internal server error",
-                            responseCode = "500"
-                    ),
-            }
-    )
-    @GetMapping()
-    RestResponseWrapper<ListCourseResponseDTO> getAllCourses(
-            @RequestParam(defaultValue = "0") int offset,
-            @RequestParam(defaultValue = "5") int limit) {
-        return new RestResponseWrapper<>(courseService.getAllCourses(offset, limit));
-    }
+public class CourseController implements CourseApi {
+    @Autowired
+    private CourseService courseService;
 
+    @Override
+    public ResponseEntity<List<CourseResponseDto>> getCourses() {
+        List<CourseResponseDto> courses = courseService.getCourses();
+        return ResponseEntity.ok(courses);
+    }
 }

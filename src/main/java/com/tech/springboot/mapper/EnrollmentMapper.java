@@ -1,7 +1,6 @@
 package com.tech.springboot.mapper;
 
-import com.tech.springboot.dto.EnrollmentCreateDTO;
-import com.tech.springboot.dto.EnrollmentUpdateDTO;
+import com.fpt.training.aio.lending.model.EnrollmentRequestDto;
 import com.tech.springboot.entity.Enrollment;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -10,10 +9,8 @@ import org.mapstruct.factory.Mappers;
 public interface EnrollmentMapper {
     EnrollmentMapper INSTANCE = Mappers.getMapper(EnrollmentMapper.class);
 
-    EnrollmentCreateDTO toDTO(Enrollment enrollment);
+    EnrollmentRequestDto toDTO(Enrollment enrollment);
 
-    Enrollment toEntity(EnrollmentCreateDTO enrollmentCreateDTO);
-
-    Enrollment toEntity(EnrollmentUpdateDTO enrollmentUpdateDTO);
+    Enrollment toEntity(EnrollmentRequestDto enrollmentRequestDto);
 
 }

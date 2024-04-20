@@ -1,6 +1,6 @@
 package com.tech.springboot.mapper;
 
-import com.tech.springboot.dto.Meta;
+import com.fpt.training.aio.lending.model.Meta;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
