@@ -1,35 +1,43 @@
 package com.tech.springboot.service.impl;
 
 import com.fpt.training.aio.lending.model.EnrollmentRequestDto;
-import com.tech.springboot.entity.Enrollment;
-import com.tech.springboot.mapper.EnrollmentMapper;
+import com.fpt.training.aio.lending.model.EnrollmentResponseDto;
 import com.tech.springboot.repository.EnrollmentRepository;
 import com.tech.springboot.service.EnrollmentService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.List;
 import java.util.UUID;
 
+@RequiredArgsConstructor
 @Service
 public class EnrollmentServiceImpl implements EnrollmentService {
-    @Autowired
-    private EnrollmentRepository enrollmentRepository;
+    private final EnrollmentRepository enrollmentRepository;
+
 
     @Override
-    public EnrollmentRequestDto saveEnrollment(EnrollmentRequestDto enrollmentRequestDto) {
-        Enrollment eToEntity = EnrollmentMapper.INSTANCE.toEntity(enrollmentRequestDto);
-        Enrollment saveEnrollment = enrollmentRepository.save(eToEntity);
-        return EnrollmentMapper.INSTANCE.toDTO(saveEnrollment);
+    public EnrollmentResponseDto addEnrollment(EnrollmentRequestDto enrollmentRequestDto) {
+        return null;
     }
 
-    @SuppressWarnings("OptionalGetWithoutIsPresent")
     @Override
-    public EnrollmentRequestDto updateEnrollment(UUID uuid, EnrollmentRequestDto enrollmentRequestDto) {
-        Optional<Enrollment> eOptional = enrollmentRepository.findById(uuid);
-        Enrollment eToUpdate = eOptional.get();
-        eToUpdate.setStatus(enrollmentRequestDto.getStatus());
-        Enrollment saveEnrollment = enrollmentRepository.save(eToUpdate);
-        return EnrollmentMapper.INSTANCE.toDTO(saveEnrollment);
+    public List<EnrollmentResponseDto> getEnrollments() {
+        return null;
+    }
+
+    @Override
+    public EnrollmentResponseDto updateEnrollmentById(UUID uuid, EnrollmentRequestDto enrollmentRequestDto) {
+        return null;
+    }
+
+    @Override
+    public EnrollmentResponseDto getEnrollmentById(UUID uuid) {
+        return null;
+    }
+
+    @Override
+    public void deleteEnrollmentById(UUID uuid) {
+
     }
 }

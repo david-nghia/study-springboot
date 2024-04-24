@@ -4,6 +4,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -48,14 +49,14 @@ public class JwtUtil {
     }
 
     //generate token for user
-    public String genAccessToken(String userDetails) {
+    public String genAccessToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
-        return doGenerateToken(claims, userDetails);
+        return doGenerateToken(claims, userDetails.getUsername());
     }
 
-    public String genRefreshToken(String userDetails) {
+    public String genRefreshToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
-        return doGenerateRefreshToken(claims, userDetails);
+        return doGenerateRefreshToken(claims, userDetails.getUsername());
     }
 
     private String doGenerateToken(Map<String, Object> claims, String subject) {

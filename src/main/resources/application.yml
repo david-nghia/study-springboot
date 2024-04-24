@@ -31,3 +31,7 @@ jwt:
   expire-length: 300
   refresh-expiration-date: 600
   one-token-mode: false
+
+server:
+  timezone: Asia/Ho_Chi_Minh
+  port: 8080

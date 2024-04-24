@@ -9,7 +9,7 @@ import java.util.List;
 
 @Mapper
 public interface CourseMapper {
-    CourseMapper INSTANCE = Mappers.getMapper(CourseMapper.class);
-
-    List<CourseResponseDto> toDTOs(List<Course> courses);
+//    CourseMapper INSTANCE = Mappers.getMapper(CourseMapper.class);
+//
+//    List<CourseResponseDto> toDTOs(List<Course> courses);
 }
