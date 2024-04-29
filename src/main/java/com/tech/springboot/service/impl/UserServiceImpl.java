@@ -36,6 +36,11 @@ public class UserServiceImpl implements UserService {
         registerUserDto.setPassword(passwordEncoder.encode(registerUserDto.getPassword()));
         User userRegister = UserMapper.INSTANCE.toEntity(registerUserDto);
         userRegister.setStatus(StatusEnum.ACTIVE);
+        userRegister.setCreatedBy("admin");
+        userRegister.setCreatedDate(OffsetDateTime.now());
+        userRegister.setModifiedBy("admin");
+        userRegister.setModifiedDate(OffsetDateTime.now());
+
         User userDb = userRepository.save(userRegister);
         return UserMapper.INSTANCE.toDto(userDb);
     }
@@ -48,7 +53,8 @@ public class UserServiceImpl implements UserService {
                     AlertMessage.alert(ExceptionAlertEnum.USER_EXIST_DB));
         }
         User user = UserMapper.INSTANCE.toEntity(userRequestDto);
-        return UserMapper.INSTANCE.toDTO(user);
+        User userDb = userRepository.save(user);
+        return UserMapper.INSTANCE.toDTO(userDb);
     }
 
     @Override

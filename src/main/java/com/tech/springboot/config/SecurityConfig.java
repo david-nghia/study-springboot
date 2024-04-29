@@ -18,13 +18,16 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.*;
 
 import static org.springframework.http.HttpMethod.*;
 import static org.springframework.http.HttpMethod.OPTIONS;
+import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
@@ -38,67 +41,72 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http.exceptionHandling(AbstractHttpConfigurer::disable)
-                .formLogin(AbstractHttpConfigurer::disable).anonymous(AbstractHttpConfigurer::disable)
-                .csrf(AbstractHttpConfigurer::disable).cors(populateCorsConfiguration())
-                .sessionManagement(populateSessionManagement())
-                .authorizeHttpRequests(populateAuthorizeHttpRequests())
-                .exceptionHandling(exceptionHandling()).build();
+
+        // Enable CORS and disable CSRF
+        http = http.cors(Customizer.withDefaults()).csrf(csrf -> csrf.disable());
+
+        // Set session management to stateless
+        http = http
+                .sessionManagement(management -> management
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+
+        http.authorizeHttpRequests(requests -> requests
+                        .requestMatchers(populateIgnorePaths().toArray(String[]::new)).permitAll()
+                        .anyRequest().authenticated())
+                .addFilterBefore(requestFilter, UsernamePasswordAuthenticationFilter.class);
+
+        // Set unauthorized requests exception handler
+        http = http
+                .exceptionHandling(handling -> handling
+                        .authenticationEntryPoint(
+                                (request, response, ex) -> {
+                                    response.sendError(
+                                            HttpServletResponse.SC_UNAUTHORIZED,
+                                            ex.getMessage()
+                                    );
+                                }
+                        ));
+
+        return http.build();
     }
 
-    private Customizer<ExceptionHandlingConfigurer<HttpSecurity>> exceptionHandling() {
-        return handling -> handling.authenticationEntryPoint((request, response, ex) -> {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, ex.getMessage());
-        });
+
+
+
+//    @Bean
+//    CorsConfigurationSource corsConfigurationSource() {
+//        // Define the CORS configuration
+//        CorsConfiguration corsConfiguration = new CorsConfiguration();
+//        corsConfiguration.setAllowCredentials(true);
+//        corsConfiguration.addAllowedOrigin("http://localhost:3000");
+//        corsConfiguration.addAllowedHeader("*");
+//        corsConfiguration.addAllowedMethod("*");
+//
+//        // Set the CORS configuration source
+//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//        source.registerCorsConfiguration("/**", corsConfiguration);
+//
+//        return source;
+//    }
+
+    private List<String> populateIgnorePaths() {
+        Set<String> ignorePaths = new HashSet<>();
+        ignorePaths.add("/pages/**");
+        ignorePaths.add("/js/***");
+        ignorePaths.add("/api/v1/auth/**");
+        ignorePaths.add("/api/v1/users");
+        ignorePaths.add("/v2/api-docs");
+        ignorePaths.add("/v3/api-docs");
+        ignorePaths.add("/swagger-ui/**");
+        ignorePaths.add("/swagger-resources/**");
+        ignorePaths.add("/*/swagger-resources/**");
+        ignorePaths.add("/*/v2/api-docs");
+        ignorePaths.add("/v3/api-docs/**");
+//        Set<String> path = authSecurityConfig.getPublicPaths();
+//        return path.stream().toList();
+        return ignorePaths.stream().toList();
     }
 
-    private Customizer<CorsConfigurer<HttpSecurity>> populateCorsConfiguration() {
-        return cors -> cors.configurationSource(populateCorsConfigurationSource());
-    }
-
-    private CorsConfigurationSource populateCorsConfigurationSource() {
-        return request -> {
-            var corsConfiguration = new CorsConfiguration();
-            corsConfiguration.applyPermitDefaultValues();
-            corsConfiguration.setExposedHeaders(List.of(HttpHeaders.CONTENT_DISPOSITION));
-            corsConfiguration.setAllowedMethods(
-                    List.of(GET.name(), POST.name(), PUT.name(), PATCH.name(), DELETE.name(),
-                            OPTIONS.name()));
-            return corsConfiguration;
-        };
-    }
-
-    private Customizer<SessionManagementConfigurer<HttpSecurity>> populateSessionManagement() {
-        return sessionManagement -> sessionManagement.sessionCreationPolicy(
-                SessionCreationPolicy.STATELESS);
-    }
-
-    private Customizer<AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry> populateAuthorizeHttpRequests() {
-        return auth -> {
-            auth.requestMatchers("/error").permitAll();
-            populateIgnorePaths().forEach(
-                    (method, url) -> auth.requestMatchers(HttpMethod.valueOf(method),
-                            url.toArray(String[]::new)).permitAll());
-//             auth.requestMatchers(POST, "/v1/abcxyz").permitAll();
-//             auth.requestMatchers(GET, "/api/v1/courses").permitAll();
-            auth.anyRequest().hasAuthority(AUTH_ROLE);
-        };
-    }
-
-    private Map<String, List<String>> populateIgnorePaths() {
-        var ignorePaths = new HashMap<String, List<String>>();
-        for (var ignorePath : authSecurityConfig.getPublicPaths()) {
-            var splitIgnorePath = ignorePath.split(PATH_PATTERN_DELIMITER);
-            var ignorePathMethod = splitIgnorePath[0];
-            var ignorePathUrl = splitIgnorePath[1];
-
-            var httpMethodIgnorePaths = ignorePaths.getOrDefault(ignorePathMethod,
-                    new ArrayList<>());
-            httpMethodIgnorePaths.add(ignorePathUrl);
-            ignorePaths.put(ignorePathMethod, httpMethodIgnorePaths);
-        }
-        return ignorePaths;
-    }
     @Bean
     public AuthenticationManager authenticationManager(
             AuthenticationConfiguration authenticationConfiguration) throws Exception {

@@ -51,6 +51,10 @@ public class AuthImpl implements AuthService {
         var refreshToken = jwtUtil.genRefreshToken(userInfo);
 
         Token token = new Token();
+        token.setCreatedDate(OffsetDateTime.now());
+        token.setCreatedBy("system");
+        token.setModifiedDate(OffsetDateTime.now());
+        token.setModifiedBy("system");
         token.setAccessToken(accessToken);
         token.setRefreshToken(refreshToken);
         token.setUser(userEntity);
