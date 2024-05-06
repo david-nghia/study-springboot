@@ -1,15 +1,19 @@
 package com.tech.springboot.service.impl;
 
-import com.fpt.training.aio.lending.model.EnrollmentRequestDto;
-import com.fpt.training.aio.lending.model.EnrollmentResponseDto;
-import com.tech.springboot.entity.Enrollment;
+import com.tech.springboot.constant.GlobalFunction;
+import com.tech.springboot.lending.model.EnrollmentRequestDto;
+import com.tech.springboot.lending.model.EnrollmentResponseDto;
+import com.tech.springboot.mapper.UserMapper;
+import com.tech.springboot.model.entity.Enrollment;
 import com.tech.springboot.enums.ExceptionAlertEnum;
 import com.tech.springboot.enums.StatusEnum;
 import com.tech.springboot.exception.BusinessException;
 import com.tech.springboot.exception.dto.AlertMessage;
 import com.tech.springboot.mapper.EnrollmentMapper;
+import com.tech.springboot.model.entity.User;
 import com.tech.springboot.repository.EnrollmentRepository;
 import com.tech.springboot.service.EnrollmentService;
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +26,7 @@ import java.util.UUID;
 @Service
 public class EnrollmentServiceImpl implements EnrollmentService {
     private final EnrollmentRepository enrollmentRepository;
+    private final EntityManager entityManager;
 
 
     @Override
@@ -88,5 +93,19 @@ public class EnrollmentServiceImpl implements EnrollmentService {
         }
         enrollmentToDelete.setStatus(StatusEnum.DELETED);
         enrollmentRepository.save(enrollmentToDelete);
+    }
+
+    @Override
+    public List<EnrollmentResponseDto> searchEnrollment(Integer offset, Integer limit, List<String> sort, List<String> search) {
+        List<?> rawEnrollments = GlobalFunction.filter(entityManager, Enrollment.class, offset, limit, sort, search);
+        List<Enrollment> enrollments = null;
+
+        if (rawEnrollments != null && rawEnrollments.size() > 0 && rawEnrollments.get(0) instanceof Enrollment) {
+            enrollments = (List<Enrollment>) rawEnrollments;
+        } else {
+//            throw new IllegalArgumentException("The result is not of type List<Enrollment>");
+            enrollments = Collections.emptyList();
+        }
+        return EnrollmentMapper.INSTANCE.toDtoList(enrollments);
     }
 }

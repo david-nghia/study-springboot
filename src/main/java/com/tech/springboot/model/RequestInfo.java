@@ -1,6 +1,6 @@
 package com.tech.springboot.model;
 
-import com.tech.springboot.until.JwtUtil;
+import com.tech.springboot.utils.JwtTokenUtils;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -18,10 +18,10 @@ import java.io.Serializable;
 @Slf4j
 public class RequestInfo implements Serializable {
     @Serial
-    private static final long serialVersionUID = -4919846569047835219L;
+    private static final long serialVersionUID = 4919846569047835219L;
 
     @Autowired
-    private JwtUtil jwtUtil;
+    private JwtTokenUtils jwtTokenUtils;
     private String token;
     private String username;
 
@@ -31,7 +31,7 @@ public class RequestInfo implements Serializable {
         }
 
         this.token = token;
-        username = jwtUtil.getUsernameFromToken(token);
+        username = jwtTokenUtils.getUsernameFromToken(token);
         log.info("Username in token: {}", username);
     }
 

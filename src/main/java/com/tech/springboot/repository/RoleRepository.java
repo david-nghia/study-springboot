@@ -1,6 +1,6 @@
 package com.tech.springboot.repository;
 
-import com.tech.springboot.entity.Role;
+import com.tech.springboot.model.entity.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

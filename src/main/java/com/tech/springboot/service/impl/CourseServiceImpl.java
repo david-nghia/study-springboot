@@ -1,17 +1,20 @@
 package com.tech.springboot.service.impl;
 
-import com.fpt.training.aio.lending.model.CourseRequestDto;
-import com.fpt.training.aio.lending.model.CourseResponseDto;
-import com.tech.springboot.entity.Course;
+import com.tech.springboot.constant.GlobalFunction;
+import com.tech.springboot.lending.model.CourseRequestDto;
+import com.tech.springboot.lending.model.CourseResponseDto;
+import com.tech.springboot.mapper.UserMapper;
+import com.tech.springboot.model.entity.Course;
 import com.tech.springboot.enums.ExceptionAlertEnum;
 import com.tech.springboot.enums.StatusEnum;
 import com.tech.springboot.exception.BusinessException;
 import com.tech.springboot.exception.dto.AlertMessage;
 import com.tech.springboot.mapper.CourseMapper;
+import com.tech.springboot.model.entity.User;
 import com.tech.springboot.repository.CourseRepository;
 import com.tech.springboot.service.CourseService;
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -26,6 +29,7 @@ import java.util.UUID;
 @Service
 public class CourseServiceImpl implements CourseService {
     private final CourseRepository courseRepository;
+    private final EntityManager entityManager;
 
     @Override
     public CourseResponseDto addCourse(CourseRequestDto courseRequestDto) {
@@ -100,5 +104,19 @@ public class CourseServiceImpl implements CourseService {
         }
         courseToDelete.setStatus(StatusEnum.DELETED);
         courseRepository.save(courseToDelete);
+    }
+
+    @Override
+    public List<CourseResponseDto> searchCourse(Integer offset, Integer limit, List<String> sort, List<String> search) {
+        List<?> rawCourses = GlobalFunction.filter(entityManager, Course.class, offset, limit, sort, search);
+        List<Course> courses = null;
+
+        if (rawCourses != null && rawCourses.size() > 0 && rawCourses.get(0) instanceof Course) {
+            courses = (List<Course>) rawCourses;
+        } else {
+//            throw new IllegalArgumentException("The result is not of type List<User>");
+            courses = Collections.emptyList();
+        }
+        return CourseMapper.INSTANCE.toDtoList(courses);
     }
 }

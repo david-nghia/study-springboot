@@ -1,6 +1,6 @@
 package com.tech.springboot.service.impl;
 
-import com.tech.springboot.entity.User;
+import com.tech.springboot.model.entity.User;
 import com.tech.springboot.enums.ExceptionAlertEnum;
 import com.tech.springboot.enums.StatusEnum;
 import com.tech.springboot.exception.BusinessException;

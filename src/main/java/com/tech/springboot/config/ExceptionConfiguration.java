@@ -9,7 +9,7 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
 @Configuration
 public class ExceptionConfiguration {
 
-    @Value(value = "${classpath:message/businessExceptionLabels.properties}")
+    @Value(value = "${classpath:message/application-businessExceptionLabels.yml}")
     private String businessMessagePath;
 
     @Bean

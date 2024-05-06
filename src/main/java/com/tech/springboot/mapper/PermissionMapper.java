@@ -1,7 +1,7 @@
 package com.tech.springboot.mapper;
 
-import com.fpt.training.aio.lending.model.PermissionResponseDto;
-import com.tech.springboot.entity.Permission;
+import com.tech.springboot.lending.model.PermissionResponseDto;
+import com.tech.springboot.model.entity.Permission;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

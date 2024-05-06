@@ -1,57 +1,72 @@
 package com.tech.springboot.controller;
 
-import com.fpt.training.aio.lending.api.UserApi;
-import com.fpt.training.aio.lending.model.RoleResponseDto;
-import com.fpt.training.aio.lending.model.UserRequestDto;
-import com.fpt.training.aio.lending.model.UserResponseDto;
-import com.fpt.training.aio.lending.model.UserRoleRequestDto;
+import com.tech.springboot.lending.api.UserApi;
+import com.tech.springboot.lending.model.RoleResponseDto;
+import com.tech.springboot.lending.model.UserRequestDto;
+import com.tech.springboot.lending.model.UserResponseDto;
+import com.tech.springboot.lending.model.UserRoleRequestDto;
 import com.tech.springboot.service.UserService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
 
-@RequiredArgsConstructor
 @RestController
+@RequiredArgsConstructor
+@Slf4j
 public class UserController implements UserApi {
     private final UserService userService;
 
     @Override
-    public ResponseEntity<UserResponseDto> addUser(UserRequestDto userRequestDto) {
-        UserResponseDto userResponseDto = userService.addUser(userRequestDto);
-        return ResponseEntity.ok(userResponseDto);
-    }
-
-    @Override
     public ResponseEntity<List<RoleResponseDto>> assignRolesToUser(UserRoleRequestDto userRoleRequestDto) {
+        log.info("Assign roles to user by id: {}", userRoleRequestDto.getUserId());
         List<RoleResponseDto> roles = userService.assignRoleToUser(userRoleRequestDto);
+        log.info("Assign roles to user successful");
         return ResponseEntity.ok(roles);
     }
 
     @Override
     public ResponseEntity<Void> deleteUserById(UUID id) {
+        log.info("Delete user by id {}", id);
         userService.deleteUserById(id);
+        log.info("Delete user successful");
         return ResponseEntity.ok(null);
     }
 
     @Override
     public ResponseEntity<UserResponseDto> getUserById(UUID id) {
-        UserResponseDto userResponseDto = userService.getUserById(id);
-        return ResponseEntity.ok(userResponseDto);
+        log.info("Get user by id {}", id);
+        var response = userService.getUserById(id);
+        log.info("Get user successful: {}", response);
+        return ResponseEntity.ok(response);
     }
 
     @Override
     public ResponseEntity<List<UserResponseDto>> getUsers() {
+        log.info("Get active users");
         List<UserResponseDto> users = userService.getUsers();
+        log.info("Get list of active user successful");
         return ResponseEntity.ok(users);
     }
 
-//    @Override
-//    public ResponseEntity<UserResponseDto> updateUserById(UUID id, UserRequestDto userRequestDto) {
-//        UserResponseDto userResponseDto = userService.updateUserById(id, userRequestDto);
-//        return ResponseEntity.ok(userResponseDto);
-//    }
+    @Override
+    public ResponseEntity<UserResponseDto> updateUserById(UUID id, UserRequestDto userRequestDto) {
+        log.info("Update user by id {}", id);
+        var response = userService.updateUserById(id, userRequestDto);
+        log.info("Update user successful: {}", response);
+        return ResponseEntity.ok(response);
+    }
+
+    @Override
+    public ResponseEntity<List<UserResponseDto>> searchUsers(Integer offset, Integer limit, List<String> sort, List<String> search) {
+        log.info("Search users based on criteria");
+        var response = userService.searchUser(offset, limit, sort, search);
+        log.info("Search for users successful");
+        return ResponseEntity.ok(response);
+    }
+
 }

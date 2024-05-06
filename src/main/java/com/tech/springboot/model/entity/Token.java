@@ -1,4 +1,4 @@
-package com.tech.springboot.entity;
+package com.tech.springboot.model.entity;
 
 import com.tech.springboot.enums.TokenTypeEnum;
 import jakarta.persistence.*;

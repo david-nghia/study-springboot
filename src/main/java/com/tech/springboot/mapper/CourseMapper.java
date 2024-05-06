@@ -1,7 +1,7 @@
 package com.tech.springboot.mapper;
 
-import com.fpt.training.aio.lending.model.CourseResponseDto;
-import com.tech.springboot.entity.Course;
+import com.tech.springboot.lending.model.CourseResponseDto;
+import com.tech.springboot.model.entity.Course;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;

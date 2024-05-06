@@ -1,21 +1,20 @@
 package com.tech.springboot.service.impl;
 
-import com.fpt.training.aio.lending.model.PermissionResponseDto;
-import com.fpt.training.aio.lending.model.RolePermissionRequestDto;
-import com.fpt.training.aio.lending.model.RoleRequestDto;
-import com.fpt.training.aio.lending.model.RoleResponseDto;
-import com.tech.springboot.entity.Permission;
-import com.tech.springboot.entity.Role;
+import com.tech.springboot.constant.GlobalFunction;
+import com.tech.springboot.lending.model.*;
+import com.tech.springboot.model.entity.Permission;
+import com.tech.springboot.model.entity.Role;
 import com.tech.springboot.enums.ExceptionAlertEnum;
 import com.tech.springboot.enums.StatusEnum;
 import com.tech.springboot.exception.BusinessException;
 import com.tech.springboot.exception.dto.AlertMessage;
 import com.tech.springboot.mapper.PermissionMapper;
 import com.tech.springboot.mapper.RoleMapper;
+import com.tech.springboot.model.entity.User;
 import com.tech.springboot.repository.PermissionRepository;
 import com.tech.springboot.repository.RoleRepository;
-import com.tech.springboot.repository.UserRepository;
 import com.tech.springboot.service.RoleService;
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +25,8 @@ import java.util.*;
 public class RoleImpl implements RoleService {
     private final RoleRepository roleRepository;
     private final PermissionRepository permissionRepository;
+
+    private final EntityManager entityManager;
 
     @Override
     public RoleResponseDto addRole(RoleRequestDto roleRequestDto) {
@@ -111,6 +112,19 @@ public class RoleImpl implements RoleService {
         roleRepository.save(role);
         List<PermissionResponseDto> resp = PermissionMapper.INSTANCE.toDtoList(permissions);
         return resp;
+    }
+
+    @Override
+    public List<RoleResponseDto> searchRole(Integer offset, Integer limit, List<String> sortBy, List<String> search) {
+        List<?> rawRoles = GlobalFunction.filter(entityManager, Role.class, offset, limit, sortBy, search);
+        List<Role> roles = null;
+
+        if (rawRoles != null && rawRoles.size() > 0 && rawRoles.get(0) instanceof Role) {
+            roles = (List<Role>) rawRoles;
+        } else {
+            roles = Collections.emptyList();
+        }
+        return RoleMapper.INSTANCE.toDtoList(roles);
     }
 
     private String generateKey(String name) {

@@ -1,7 +1,7 @@
 package com.tech.springboot.service;
 
-import com.fpt.training.aio.lending.model.CourseRequestDto;
-import com.fpt.training.aio.lending.model.CourseResponseDto;
+import com.tech.springboot.lending.model.CourseRequestDto;
+import com.tech.springboot.lending.model.CourseResponseDto;
 
 import java.util.List;
 import java.util.UUID;
@@ -18,5 +18,6 @@ public interface CourseService {
 
     void deleteCourseById(UUID uuid);
 
+    List<CourseResponseDto> searchCourse(Integer offset, Integer limit, List<String> sortBy, List<String> search);
 
 }

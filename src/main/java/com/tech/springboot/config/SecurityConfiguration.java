@@ -1,19 +1,16 @@
 package com.tech.springboot.config;
 
-import com.tech.springboot.config.auth.AuthSecurityConfig;
+import com.tech.springboot.config.application.ApplicationSecurityConfig;
 import com.tech.springboot.filter.RequestFilter;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.*;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,19 +22,12 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.*;
 
-import static org.springframework.http.HttpMethod.*;
-import static org.springframework.http.HttpMethod.OPTIONS;
-import static org.springframework.security.config.Customizer.withDefaults;
-
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-public class SecurityConfig {
-
-    private static final String PATH_PATTERN_DELIMITER = "::";
+public class SecurityConfiguration {
     private final RequestFilter requestFilter;
-    private final AuthSecurityConfig authSecurityConfig;
-    private final String AUTH_ROLE = "User";
+    private final ApplicationSecurityConfig applicationSecurityConfig;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -51,8 +41,10 @@ public class SecurityConfig {
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         http.authorizeHttpRequests(requests -> requests
-                        .requestMatchers(populateIgnorePaths().toArray(String[]::new)).permitAll()
-                        .anyRequest().authenticated())
+//                        .requestMatchers(populateIgnorePaths().toArray(String[]::new)).permitAll()
+//                        .anyRequest().authenticated()
+                .anyRequest().permitAll())
+
                 .addFilterBefore(requestFilter, UsernamePasswordAuthenticationFilter.class);
 
         // Set unauthorized requests exception handler
@@ -71,40 +63,24 @@ public class SecurityConfig {
     }
 
 
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        // Define the CORS configuration
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+        corsConfiguration.setAllowCredentials(true);
+        corsConfiguration.addAllowedOrigin("http://localhost:9000");
+        corsConfiguration.addAllowedHeader("*");
+        corsConfiguration.addAllowedMethod("*");
 
-
-//    @Bean
-//    CorsConfigurationSource corsConfigurationSource() {
-//        // Define the CORS configuration
-//        CorsConfiguration corsConfiguration = new CorsConfiguration();
-//        corsConfiguration.setAllowCredentials(true);
-//        corsConfiguration.addAllowedOrigin("http://localhost:3000");
-//        corsConfiguration.addAllowedHeader("*");
-//        corsConfiguration.addAllowedMethod("*");
-//
-//        // Set the CORS configuration source
-//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        source.registerCorsConfiguration("/**", corsConfiguration);
-//
-//        return source;
-//    }
+        // Set the CORS configuration source
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", corsConfiguration);
+        return source;
+    }
 
     private List<String> populateIgnorePaths() {
-        Set<String> ignorePaths = new HashSet<>();
-        ignorePaths.add("/pages/**");
-        ignorePaths.add("/js/***");
-        ignorePaths.add("/api/v1/auth/**");
-        ignorePaths.add("/api/v1/users");
-        ignorePaths.add("/v2/api-docs");
-        ignorePaths.add("/v3/api-docs");
-        ignorePaths.add("/swagger-ui/**");
-        ignorePaths.add("/swagger-resources/**");
-        ignorePaths.add("/*/swagger-resources/**");
-        ignorePaths.add("/*/v2/api-docs");
-        ignorePaths.add("/v3/api-docs/**");
-//        Set<String> path = authSecurityConfig.getPublicPaths();
-//        return path.stream().toList();
-        return ignorePaths.stream().toList();
+        Set<String> path = applicationSecurityConfig.getIgnorePaths();
+        return path.stream().toList();
     }
 
     @Bean

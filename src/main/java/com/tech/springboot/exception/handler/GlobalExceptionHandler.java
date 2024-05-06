@@ -1,7 +1,7 @@
 package com.tech.springboot.exception.handler;
 
-import com.fpt.training.aio.lending.model.Error;
-import com.fpt.training.aio.lending.model.ErrorDetails;
+import com.tech.springboot.lending.model.Error;
+import com.tech.springboot.lending.model.ErrorDetails;
 import com.tech.springboot.exception.BusinessException;
 import com.tech.springboot.exception.dto.AlertMessage;
 import lombok.RequiredArgsConstructor;
@@ -16,9 +16,9 @@ import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Locale;
 
-@Slf4j
 @ControllerAdvice
 @RequiredArgsConstructor
+@Slf4j
 public class GlobalExceptionHandler {
     private final MessageSource businessMessage;
 

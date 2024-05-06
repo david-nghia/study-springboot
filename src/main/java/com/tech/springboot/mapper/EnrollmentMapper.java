@@ -1,8 +1,8 @@
 package com.tech.springboot.mapper;
 
-import com.fpt.training.aio.lending.model.EnrollmentRequestDto;
-import com.fpt.training.aio.lending.model.EnrollmentResponseDto;
-import com.tech.springboot.entity.Enrollment;
+import com.tech.springboot.lending.model.EnrollmentRequestDto;
+import com.tech.springboot.lending.model.EnrollmentResponseDto;
+import com.tech.springboot.model.entity.Enrollment;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;

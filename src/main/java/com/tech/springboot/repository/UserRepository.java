@@ -1,6 +1,6 @@
 package com.tech.springboot.repository;
 
-import com.tech.springboot.entity.User;
+import com.tech.springboot.model.entity.User;
 import com.tech.springboot.enums.StatusEnum;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

@@ -1,9 +1,9 @@
 package com.tech.springboot.mapper;
 
-import com.fpt.training.aio.lending.model.RegisterUserDto;
-import com.fpt.training.aio.lending.model.UserRequestDto;
-import com.fpt.training.aio.lending.model.UserResponseDto;
-import com.tech.springboot.entity.User;
+import com.tech.springboot.lending.model.RegisterUserDto;
+import com.tech.springboot.lending.model.UserRequestDto;
+import com.tech.springboot.lending.model.UserResponseDto;
+import com.tech.springboot.model.entity.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;

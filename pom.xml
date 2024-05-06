@@ -33,6 +33,14 @@
             <plugin>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <groupId>org.springframework.boot</groupId>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
             </plugin>
 
             <!-- Plugin swagger code gen  -->
@@ -65,7 +73,7 @@
                 <executions>
                     <execution>
                         <configuration>
-                            <apiPackage>com.fpt.training.aio.lending.api</apiPackage>
+                            <apiPackage>com.tech.springboot.lending.api</apiPackage>
                             <configOptions>
                                 <additionalModelTypeAnnotations>
                                     @lombok.Builder
@@ -81,7 +89,7 @@
                             </ignoreFileOverride>
                             <inputSpec>${swagger.file}</inputSpec>
                             <library>spring-boot</library>
-                            <modelPackage>com.fpt.training.aio.lending.model</modelPackage>
+                            <modelPackage>com.tech.springboot.lending.model</modelPackage>
                         </configuration>
                         <goals>
                             <goal>generate</goal>
@@ -164,10 +172,18 @@
             <version>1.6.11</version>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-data-redis</artifactId>-->
-<!--        </dependency>-->
+        <!--         redis-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>5.1.2</version>
+            <type>jar</type>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>

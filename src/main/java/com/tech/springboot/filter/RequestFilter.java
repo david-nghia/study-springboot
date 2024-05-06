@@ -2,7 +2,7 @@ package com.tech.springboot.filter;
 
 import com.tech.springboot.model.RequestInfo;
 import com.tech.springboot.service.impl.UserSpringService;
-import com.tech.springboot.until.JwtUtil;
+import com.tech.springboot.utils.JwtTokenUtils;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,7 +23,7 @@ import java.io.IOException;
 public class RequestFilter extends OncePerRequestFilter {
     private final RequestInfo requestInfo;
     private final UserSpringService userSpringService;
-    private final JwtUtil jwtUtil;
+    private final JwtTokenUtils jwtUtil;
 
     @Override
     public void doFilterInternal(HttpServletRequest request, HttpServletResponse response,

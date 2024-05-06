@@ -1,7 +1,7 @@
 package com.tech.springboot.service;
 
-import com.fpt.training.aio.lending.model.PermissionRequestDto;
-import com.fpt.training.aio.lending.model.PermissionResponseDto;
+import com.tech.springboot.lending.model.PermissionRequestDto;
+import com.tech.springboot.lending.model.PermissionResponseDto;
 
 import java.util.List;
 import java.util.UUID;
@@ -16,5 +16,6 @@ public interface PermissionService {
     PermissionResponseDto getPermissionById(UUID id);
 
     void deletePermissionById(UUID uuid);
+    List<PermissionResponseDto> searchPermission(Integer offset, Integer limit, List<String> sortBy, List<String> search);
 
 }

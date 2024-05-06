@@ -1,17 +1,19 @@
 package com.tech.springboot.service.impl;
 
-import com.fpt.training.aio.lending.model.PermissionRequestDto;
-import com.fpt.training.aio.lending.model.PermissionResponseDto;
-import com.tech.springboot.entity.Permission;
-import com.tech.springboot.entity.Role;
+import com.tech.springboot.constant.GlobalFunction;
+import com.tech.springboot.lending.model.PermissionRequestDto;
+import com.tech.springboot.lending.model.PermissionResponseDto;
+import com.tech.springboot.mapper.UserMapper;
+import com.tech.springboot.model.entity.Permission;
 import com.tech.springboot.enums.ExceptionAlertEnum;
 import com.tech.springboot.enums.StatusEnum;
 import com.tech.springboot.exception.BusinessException;
 import com.tech.springboot.exception.dto.AlertMessage;
 import com.tech.springboot.mapper.PermissionMapper;
-import com.tech.springboot.mapper.RoleMapper;
+import com.tech.springboot.model.entity.User;
 import com.tech.springboot.repository.PermissionRepository;
 import com.tech.springboot.service.PermissionService;
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,7 @@ import java.util.*;
 @RequiredArgsConstructor
 public class PermissionImpl implements PermissionService {
     private final PermissionRepository permissionRepository;
+    private final EntityManager entityManager;
 
     @Override
     public PermissionResponseDto addPermission(PermissionRequestDto permissionRequestDto) {
@@ -94,6 +97,19 @@ public class PermissionImpl implements PermissionService {
         }
         perToDelete.setStatus(StatusEnum.DELETED);
         permissionRepository.save(perToDelete);
+    }
+
+    @Override
+    public List<PermissionResponseDto> searchPermission(Integer offset, Integer limit, List<String> sort, List<String> search) {
+        List<?> rawPermissions = GlobalFunction.filter(entityManager, Permission.class, offset, limit, sort, search);
+        List<Permission> permissions = null;
+
+        if (rawPermissions != null && rawPermissions.size() > 0 && rawPermissions.get(0) instanceof Permission) {
+            permissions = (List<Permission>) rawPermissions;
+        } else {
+            permissions = Collections.emptyList();
+        }
+        return PermissionMapper.INSTANCE.toDtoList(permissions);
     }
 
     private String generateKey(String name) {

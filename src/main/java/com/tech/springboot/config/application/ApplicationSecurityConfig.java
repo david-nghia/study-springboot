@@ -1,4 +1,4 @@
-package com.tech.springboot.config.auth;
+package com.tech.springboot.config.application;
 
 import lombok.Getter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -10,6 +10,6 @@ import java.util.Set;
 @ConfigurationProperties(prefix = "application.security")
 @Component
 @Getter
-public class AuthSecurityConfig {
-    private Set<String> publicPaths = new HashSet<>();
+public class ApplicationSecurityConfig {
+    private Set<String> ignorePaths = new HashSet<>();
 }

@@ -1,9 +1,6 @@
 package com.tech.springboot.service;
 
-import com.fpt.training.aio.lending.model.PermissionResponseDto;
-import com.fpt.training.aio.lending.model.RolePermissionRequestDto;
-import com.fpt.training.aio.lending.model.RoleRequestDto;
-import com.fpt.training.aio.lending.model.RoleResponseDto;
+import com.tech.springboot.lending.model.*;
 
 import java.util.List;
 import java.util.UUID;
@@ -20,4 +17,6 @@ public interface RoleService {
     void deleteRoleById(UUID uuid);
 
     List<PermissionResponseDto> assignPermissionToRole(RolePermissionRequestDto rolePermissionRequestDto);
+
+    List<RoleResponseDto> searchRole(Integer offset, Integer limit, List<String> sortBy, List<String> search);
 }

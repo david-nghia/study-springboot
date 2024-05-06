@@ -1,4 +1,4 @@
-package com.tech.springboot.until;
+package com.tech.springboot.utils;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -11,8 +11,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
+
 @Component
-public class JwtUtil {
+public class JwtTokenUtils {
     @Value("${jwt.expire-length}")
     private Integer timeExpired;
 
