@@ -16,7 +16,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "tbl_permissions")
+@Table(name = "permissions")
 public class Permission extends BaseEntity<String> {
     @Id
     @GeneratedValue(generator = "uuid2")

@@ -1,0 +1,2143 @@
+openapi: 3.0.3
+info:
+  title: Study-Springboot Service
+  description: REST API documentation for Study-Springboot Service
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8080
+    description: Optional server description, e.g. Main (production) server
+  - url: http://staging-api.example.com
+    description: Optional server description, e.g. Internal staging server for testing
+
+tags:
+  - name: Study-Springboot Service
+    description: Define all service of Study-Springboot
+
+paths:
+  /api/v1/auth/signin:
+    post:
+      summary: Auth sign in
+      description: Endpoint provide auth sign in
+      operationId: signIn
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AuthRequestDto"
+      responses:
+        '200':
+          description: Login successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthResponseDto"
+        400:
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        401:
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        403:
+          description: "Forbidden"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        404:
+          description: "Not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: "internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /api/v1/auth/signup:
+    post:
+      summary: Auth sign up
+      description: Register user
+      operationId: signUp
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RegisterUserDto"
+      responses:
+        '201':
+          description: Sign up successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RegisterUserDto"
+        400:
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        401:
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        403:
+          description: "Forbidden"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        404:
+          description: "Not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: "internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /api/v1/auth/refresh-token:
+    post:
+      summary: Refresh access token
+      description: Endpoint to refresh the access token when the current token has expired
+      operationId: RefreshAccessToken
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RefreshTokenRequestDto"
+      responses:
+        '200':
+          description: Sign up successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthResponseDto"
+        400:
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        401:
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        403:
+          description: "Forbidden"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        404:
+          description: "Not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: "internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /api/v1/users/{id}:
+    get:
+      summary: Get User by ID
+      description: Endpoint to get a user details for the given user ID
+      operationId: getUserById
+      tags:
+        - User
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Get user successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserResponseDto"
+        400:
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        401:
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        403:
+          description: "Forbidden"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        404:
+          description: "Not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: "internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    put:
+      summary: Update user by ID
+      description: Endpoint to update a user details for the given user ID
+      operationId: updateUserById
+      tags:
+        - User
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserRequestDto"
+      responses:
+        '200':
+          description: Update user successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserResponseDto"
+        400:
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        401:
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        403:
+          description: "Forbidden"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        404:
+          description: "Not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: "internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      summary: Delete User by ID
+      description: Endpoint to delete a user for the given a user ID
+      operationId: deleteUserById
+      tags:
+        - User
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Delete user successfully
+        400:
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        401:
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        403:
+          description: "Forbidden"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        404:
+          description: "Not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: "internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /api/v1/users:
+    get:
+      summary: Get active users
+      description: Endpoint to get list of active users
+      operationId: getUsers
+      tags:
+        - User
+      responses:
+        '200':
+          description: Get active users successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/UserResponseDto"
+        400:
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        401:
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        403:
+          description: "Forbidden"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        404:
+          description: "Not Found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /api/v1/roles:
+    post:
+      summary: Add new role
+      description: Endpoint to add new role
+      operationId: addRole
+      tags:
+        - Role
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RoleRequestDto"
+      responses:
+        '200':
+          description: Role created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RoleResponseDto"
+        400:
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        401:
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        403:
+          description: "Forbidden"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        404:
+          description: "Not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: "internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    get:
+      summary: Get lists of roles
+      description: Endpoint to retrieve a lists of all available roles
+      operationId: getRoles
+      tags:
+        - Role
+      responses:
+        '200':
+          description: Get roles successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/RoleResponseDto"
+        400:
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        401:
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        403:
+          description: "Forbidden"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        404:
+          description: "Not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: "internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /api/v1/roles/{id}:
+    get:
+      summary: Get Role by ID
+      description: Endpoint to get the details of a role for the given role ID
+      operationId: getRoleById
+      tags:
+        - Role
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Get role successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RoleResponseDto"
+        400:
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        401:
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        403:
+          description: "Forbidden"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        404:
+          description: "Not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: "internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    put:
+      summary: Update Role by ID
+      description: Endpoint to update the details of a role for the given role ID
+      operationId: updateRoleByID
+      tags:
+        - Role
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RoleRequestDto"
+      responses:
+        '200':
+          description: Update role successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RoleResponseDto"
+        400:
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        401:
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        403:
+          description: "Forbidden"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        404:
+          description: "Not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: "internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      summary: Delete Role by ID
+      description: Endpoint to delete a role for the given role ID
+      operationId: deleteRoleByID
+      tags:
+        - Role
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Delete role successfully
+        400:
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        401:
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        403:
+          description: "Forbidden"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        404:
+          description: "Not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: "internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /api/v1/users/roles:
+    put:
+      summary: Assign roles to a user
+      description: Assign one or more roles to a user identified by their ID
+      operationId: assignRolesToUser
+      tags:
+        - User
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserRoleRequestDto"
+      responses:
+        '200':
+          description: Role added to user successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/RoleResponseDto"
+        400:
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        401:
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        403:
+          description: "Forbidden"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        404:
+          description: "Not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: "internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /api/v1/permissions:
+    post:
+      summary: Add new permission
+      description: Endpoint to add new permission
+      operationId: addPermission
+      tags:
+        - Permission
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PermissionRequestDto"
+      responses:
+        '200':
+          description: Permission created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PermissionResponseDto"
+        400:
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        401:
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        403:
+          description: "Forbidden"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        404:
+          description: "Not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: "internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    get:
+      summary: Get list of permissions
+      description: Endpoint to retrieve a list of all available permissions
+      operationId: getPermissions
+      tags:
+        - Permission
+      responses:
+        '200':
+          description: Get permissions successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PermissionResponseDto"
+        400:
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        401:
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        403:
+          description: "Forbidden"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        404:
+          description: "Not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: "internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /api/v1/roles/permissions:
+    put:
+      summary: Assign permission to a role
+      description: Assign one or more permissions to a role identified by their ID
+      operationId: assignPermission
+      tags:
+        - Role
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RolePermissionRequestDto"
+      responses:
+        '200':
+          description: Permission added to role successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PermissionResponseDto"
+        400:
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        401:
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        403:
+          description: "Forbidden"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        404:
+          description: "Not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: "internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /api/v1/permissions/{id}:
+    get:
+      summary: Get Permission by ID
+      description: Endpoint to get a permission details for the given permission ID
+      operationId: getPermissionById
+      tags:
+        - Permission
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Get permission successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PermissionResponseDto"
+        400:
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        401:
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        403:
+          description: "Forbidden"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        404:
+          description: "Not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: "internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    put:
+      summary: Update Permission by ID
+      description: Endpoint to update a permission details for the given permission ID
+      operationId: updatePermissionById
+      tags:
+        - Permission
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PermissionRequestDto"
+      responses:
+        '200':
+          description: Update permission successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PermissionResponseDto"
+        400:
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        401:
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        403:
+          description: "Forbidden"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        404:
+          description: "Not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: "internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      summary: Delete Permission by ID
+      description: Endpoint to delete a permission details for the given permission ID
+      operationId: deletePermissionById
+      tags:
+        - Permission
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Delete permission successfully
+        400:
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        401:
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        403:
+          description: "Forbidden"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        404:
+          description: "Not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: "internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /api/v1/enrollments:
+    get:
+      summary: Get all enrollments
+      description: Endpoint to get a list of all enrollments
+      operationId: getEnrollments
+      tags:
+        - Enrollment
+      responses:
+        '200':
+          description: Get all enrollments successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/EnrollmentResponseDto"
+        400:
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        401:
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        403:
+          description: "Forbidden"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        404:
+          description: "Not Found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      summary: Add new enrollment
+      description: Endpoint to add new enrollment
+      operationId: addEnrollment
+      tags:
+        - Enrollment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EnrollmentRequestDto"
+      responses:
+        '200':
+          description: Role created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EnrollmentResponseDto"
+        400:
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        401:
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        403:
+          description: "Forbidden"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        404:
+          description: "Not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: "internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /api/v1/enrollments/{id}:
+    get:
+      summary: Get Enrollment by ID
+      description: Endpoint to get the details of a enrollment for the given enrollment ID
+      operationId: getEnrollmentById
+      tags:
+        - Enrollment
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Get enrollment successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EnrollmentResponseDto"
+        400:
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        401:
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        403:
+          description: "Forbidden"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        404:
+          description: "Not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: "internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    put:
+      summary: Update Enrollment by ID
+      description: Endpoint to update the details of a enrollment for the given enrollment ID
+      operationId: updateEnrollmentByID
+      tags:
+        - Enrollment
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EnrollmentRequestDto"
+      responses:
+        '200':
+          description: Update role successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EnrollmentResponseDto"
+        400:
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        401:
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        403:
+          description: "Forbidden"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        404:
+          description: "Not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: "internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      summary: Delete Enrollment by ID
+      description: Endpoint to delete a enrollment for the given enrollment ID
+      operationId: deleteEnrollmentByID
+      tags:
+        - Enrollment
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Delete enrollment successfully
+        400:
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        401:
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        403:
+          description: "Forbidden"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        404:
+          description: "Not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: "internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+
+  /api/v1/courses:
+    get:
+      summary: Get all courses
+      description: Endpoint to get a list of all courses
+      operationId: getCourses
+      tags:
+        - Course
+      responses:
+        '200':
+          description: Get all courses successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CourseResponseDto"
+        400:
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        401:
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        403:
+          description: "Forbidden"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        404:
+          description: "Not Found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      summary: Add new course
+      description: Endpoint to add new course
+      operationId: addCourse
+      tags:
+        - Course
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CourseRequestDto"
+      responses:
+        '200':
+          description: Role created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CourseResponseDto"
+        400:
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        401:
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        403:
+          description: "Forbidden"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        404:
+          description: "Not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: "internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /api/v1/courses/{id}:
+    get:
+      summary: Get Course by ID
+      description: Endpoint to get the details of a course for the given course ID
+      operationId: getCourseById
+      tags:
+        - Course
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Get course successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CourseResponseDto"
+        400:
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        401:
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        403:
+          description: "Forbidden"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        404:
+          description: "Not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: "internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    put:
+      summary: Update Course by ID
+      description: Endpoint to update the details of a course for the given course ID
+      operationId: updateCourseByID
+      tags:
+        - Course
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CourseRequestDto"
+      responses:
+        '200':
+          description: Update role successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CourseResponseDto"
+        400:
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        401:
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        403:
+          description: "Forbidden"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        404:
+          description: "Not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: "internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      summary: Delete Course by ID
+      description: Endpoint to delete a course for the given course ID
+      operationId: deleteCourseByID
+      tags:
+        - Course
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Delete course successfully
+        400:
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        401:
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        403:
+          description: "Forbidden"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        404:
+          description: "Not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: "internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /api/v1/search-users:
+    get:
+      summary: Search users based on criteria
+      description: Retrieves a list of users based on search criteria
+      operationId: searchUsers
+      tags:
+        - User
+      parameters:
+        - name: offset
+          in: query
+          description: Number of records to skip (default is 0)
+          schema:
+            type: integer
+            default: 0
+        - name: limit
+          in: query
+          description: Maximum number of records to return (default is 5)
+          schema:
+            type: integer
+            default: 5
+        - name: sort
+          in: query
+          description: Fields to sort by (optional)
+          schema:
+            type: array
+            items:
+              type: string
+        - name: search
+          in: query
+          description: Search criteria (optional)
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        '200':
+          description: Search for users successful
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserResponseDto'
+        400:
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        401:
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        403:
+          description: "Forbidden"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        404:
+          description: "Not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: "internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /api/v1/search-roles:
+    get:
+      summary: Search roles based on criteria
+      description: Retrieves a list of roles based on search criteria
+      operationId: searchRoles
+      tags:
+        - Role
+      parameters:
+        - name: offset
+          in: query
+          description: Number of records to skip (default is 0)
+          schema:
+            type: integer
+            default: 0
+        - name: limit
+          in: query
+          description: Maximum number of records to return (default is 5)
+          schema:
+            type: integer
+            default: 5
+        - name: sort
+          in: query
+          description: Fields to sort by (optional)
+          schema:
+            type: array
+            items:
+              type: string
+        - name: search
+          in: query
+          description: Search criteria (optional)
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        '200':
+          description: Search for roles successful
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RoleResponseDto'
+        400:
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        401:
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        403:
+          description: "Forbidden"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        404:
+          description: "Not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: "internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /api/v1/search-permissions:
+    get:
+      summary: Search permissions based on criteria
+      description: Retrieves a list of permissions based on search criteria
+      operationId: searchPermissions
+      tags:
+        - Permission
+      parameters:
+        - name: offset
+          in: query
+          description: Number of records to skip (default is 0)
+          schema:
+            type: integer
+            default: 0
+        - name: limit
+          in: query
+          description: Maximum number of records to return (default is 5)
+          schema:
+            type: integer
+            default: 5
+        - name: sort
+          in: query
+          description: Fields to sort by (optional)
+          schema:
+            type: array
+            items:
+              type: string
+        - name: search
+          in: query
+          description: Search criteria (optional)
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        '200':
+          description: Search for permissions successful
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PermissionResponseDto'
+        400:
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        401:
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        403:
+          description: "Forbidden"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        404:
+          description: "Not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: "internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /api/v1/search-enrollments:
+    get:
+      summary: Search enrollments based on criteria
+      description: Retrieves a list of enrollments based on search criteria
+      operationId: searchEnrollments
+      tags:
+        - Enrollment
+      parameters:
+        - name: offset
+          in: query
+          description: Number of records to skip (default is 0)
+          schema:
+            type: integer
+            default: 0
+        - name: limit
+          in: query
+          description: Maximum number of records to return (default is 5)
+          schema:
+            type: integer
+            default: 5
+        - name: sort
+          in: query
+          description: Fields to sort by (optional)
+          schema:
+            type: array
+            items:
+              type: string
+        - name: search
+          in: query
+          description: Search criteria (optional)
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        '200':
+          description: Search for enrollments successful
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EnrollmentResponseDto'
+        400:
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        401:
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        403:
+          description: "Forbidden"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        404:
+          description: "Not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: "internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /api/v1/search-courses:
+    get:
+      summary: Search courses based on criteria
+      description: Retrieves a list of courses based on search criteria
+      operationId: searchCourses
+      tags:
+        - Course
+      parameters:
+        - name: offset
+          in: query
+          description: Number of records to skip (default is 0)
+          schema:
+            type: integer
+            default: 0
+        - name: limit
+          in: query
+          description: Maximum number of records to return (default is 5)
+          schema:
+            type: integer
+            default: 5
+        - name: sort
+          in: query
+          description: Fields to sort by (optional)
+          schema:
+            type: array
+            items:
+              type: string
+        - name: search
+          in: query
+          description: Search criteria (optional)
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        '200':
+          description: Search for courses successful
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CourseResponseDto'
+        400:
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        401:
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        403:
+          description: "Forbidden"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        404:
+          description: "Not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        500:
+          description: "internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+components:
+  schemas:
+    Meta:
+      type: object
+      properties:
+        count:
+          type: integer
+        limit:
+          type: integer
+        offset:
+          type: integer
+        totalItem:
+          type: integer
+
+    CourseRequestDto:
+      type: object
+      required:
+        - name
+        - description
+        - startDate
+        - endDate
+        - duration
+        - tuitionFee
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        startDate:
+          type: string
+        endDate:
+          type: string
+        duration:
+          type: integer
+        tuitionFee:
+          type: integer
+    CourseResponseDto:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        description:
+          type: string
+        startDate:
+          type: string
+        endDate:
+          type: string
+        duration:
+          type: integer
+        tuitionFee:
+          type: integer
+        createdDate:
+          type: string
+        modifiedDate:
+          type: string
+        createdBy:
+          type: string
+        modifiedBy:
+          type: string
+
+    EnrollmentRequestDto:
+      type: object
+      required:
+        - userId
+        - courseId
+        - instructor
+        - note
+      properties:
+        userId:
+          type: string
+          format: uuid
+        courseId:
+          type: string
+          format: uuid
+        instructor:
+          type: string
+        note:
+          type: string
+    EnrollmentResponseDto:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        userId:
+          type: string
+          format: uuid
+        courseId:
+          type: string
+          format: uuid
+        instructor:
+          type: string
+        note:
+          type: string
+        createdDate:
+          type: string
+        modifiedDate:
+          type: string
+        createdBy:
+          type: string
+        modifiedBy:
+          type: string
+
+    AuthRequestDto:
+      type: object
+      required:
+        - username
+        - password
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+
+    AuthResponseDto:
+      type: object
+      required:
+        - access_token
+        - refresh_token
+        - token_type
+        - expires_on
+        - user
+      properties:
+        access_token:
+          type: string
+        refresh_token:
+          type: string
+        token_type:
+          type: string
+        expires_on:
+          type: string
+        user:
+          $ref: "#/components/schemas/UserResponseDto"
+
+    RegisterUserDto:
+      type: object
+      required:
+        - username
+        - password
+        - email
+        - dob
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+        email:
+          type: string
+        dob:
+          type: string
+    UserRequestDto:
+      type: object
+      required:
+        - username
+        - email
+        - dob
+      properties:
+        username:
+          type: string
+        email:
+          type: string
+        dob:
+          type: string
+    UserResponseDto:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        username:
+          type: string
+        email:
+          type: string
+        dob:
+          type: string
+        roles:
+          type: array
+          items:
+            $ref: "#/components/schemas/RoleResponseDto"
+        createdDate:
+          type: string
+        modifiedDate:
+          type: string
+        createdBy:
+          type: string
+        modifiedBy:
+          type: string
+
+    RoleRequestDto:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+    RoleResponseDto:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        roleKey:
+          type: string
+        permissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/PermissionResponseDto'
+    UserRoleRequestDto:
+      type: object
+      required:
+        - userId
+        - roleId
+      properties:
+        userId:
+          type: string
+          format: uuid
+        roleIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+
+    RolePermissionRequestDto:
+      type: object
+      required:
+        - roleId
+        - permissionId
+      properties:
+        roleId:
+          type: string
+          format: uuid
+        permissionIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+    PermissionRequestDto:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+    PermissionResponseDto:
+      type: object
+      required:
+        - id
+        - name
+        - permissionKey
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        permissionKey:
+          type: string
+
+    RefreshTokenRequestDto:
+      type: object
+      required:
+        - refreshToken
+      properties:
+        refreshToken:
+          type: string
+
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        timestamp:
+          type: string
+        status:
+          type: integer
+        message:
+          type: string
+        error:
+          type: array
+          items:
+            $ref: "#/components/schemas/ErrorDetails"
+
+    ErrorDetails:
+      type: object
+      required:
+        - message
+        - code
+      properties:
+        message:
+          type: string
+        code:
+          type: string

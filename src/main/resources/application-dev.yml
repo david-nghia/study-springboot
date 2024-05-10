@@ -12,8 +12,9 @@ spring:
     show-sql: true
   data:
     redis:
-      host: 127.0.0.1
-      port: 6379
+      host: 103.106.104.57
+      port: 8201
+      password: my-password
   flyway:
     schemas: app
     defaultSchema: app

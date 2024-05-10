@@ -15,7 +15,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "tbl_courses")
+@Table(name = "courses")
 public class Course extends BaseEntity<String> {
     @Id
     @GeneratedValue(generator = "uuid2")

@@ -13,7 +13,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "tbl_roles")
+@Table(name = "roles")
 public class Role extends BaseEntity<String> {
     @Id
     @GeneratedValue(generator = "uuid2")
@@ -28,7 +28,7 @@ public class Role extends BaseEntity<String> {
     private Set<User> users = new HashSet<>();
     @ManyToMany(cascade = CascadeType.REMOVE)
     @JoinTable(
-            name = "tbl_role_permission",
+            name = "role_permission",
             joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "permission_id")
     )

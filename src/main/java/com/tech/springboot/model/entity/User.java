@@ -16,7 +16,7 @@ import java.util.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "tbl_users")
+@Table(name = "users")
 public class User extends BaseEntity<String> implements UserDetails {
     @Id
     @GeneratedValue(generator = "uuid2")
@@ -35,7 +35,7 @@ public class User extends BaseEntity<String> implements UserDetails {
     private Set<Enrollment> enrollments = new HashSet<>();
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-            name = "tbl_user_role",
+            name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )

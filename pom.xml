@@ -16,16 +16,17 @@
     <properties>
         <java.version>17</java.version>
         <swagger.file>
-            ${project.build.directory}/maven-shared-archive-resources/StudyService.yaml
+            ${project.basedir}/src/main/resources/StudyService.yaml
         </swagger.file>
 
         <org.mapstruct.version>1.5.3.Final</org.mapstruct.version>
         <!--        The minimal lombok version for JDK12 or minimal spring version 3.1.4 should be 1.18.30-->
         <org.projectlombok.version>1.18.30</org.projectlombok.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
-        <swagger-codegen-generators.version>1.0.0-rc0</swagger-codegen-generators.version>
-        <swagger-codegen-maven-plugin.version>3.0.41</swagger-codegen-maven-plugin.version>
+        <swagger-codegen-maven-plugin.version>2.4.41</swagger-codegen-maven-plugin.version>
+        <generated-sources-path>${project.build.directory}/generated-sources
+        </generated-sources-path>
+        <generated-sources-java-path>main/java</generated-sources-java-path>
     </properties>
 
     <build>
@@ -41,29 +42,6 @@
                         </exclude>
                     </excludes>
                 </configuration>
-            </plugin>
-
-            <!-- Plugin swagger code gen  -->
-            <plugin>
-                <artifactId>maven-remote-resources-plugin</artifactId>
-                <configuration>
-                    <resourceBundles>
-                        <resourceBundle>org.example:study-endpoint:1.0-SNAPSHOT
-                        </resourceBundle>
-                    </resourceBundles>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>process</goal>
-                        </goals>
-                        <phase>
-                            generate-sources
-                        </phase>
-                    </execution>
-                </executions>
-                <groupId>org.apache.maven.plugins</groupId>
-                <version>1.7.0</version>
             </plugin>
 
             <plugin>
@@ -98,8 +76,6 @@
                 </executions>
             </plugin>
 
-
-            <!-- Plugin for mapper -->
             <!-- Plugin 4 mapstruct-->
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
