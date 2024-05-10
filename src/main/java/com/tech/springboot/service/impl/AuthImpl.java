@@ -48,7 +48,7 @@ public class AuthImpl implements AuthService {
                 )
         );
 
-        tokenStore.storeToken("token_key" ,authentication);
+//        tokenStore.storeToken("token_key" ,authentication);
 
         UserDetails userInfo = userSpringService.loadUserByUsername(authentication.getName());
         return buildAuthResponse(userInfo);

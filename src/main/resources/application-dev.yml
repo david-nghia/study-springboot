@@ -14,6 +14,10 @@ spring:
     redis:
       host: 127.0.0.1
       port: 6379
-#  flyway:
-#    schemas: app
-#    defaultSchema: app
+  flyway:
+    schemas: app
+    defaultSchema: app
+    locations: classpath:db/migration
+    baseline-version: 0
+    baseline-on-migrate: true
+
