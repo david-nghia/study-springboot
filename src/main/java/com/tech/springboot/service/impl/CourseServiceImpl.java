@@ -69,8 +69,8 @@ public class CourseServiceImpl implements CourseService {
         courseToUpdate.setDescription(courseRequestDto.getDescription());
         courseToUpdate.setStartDate(OffsetDateTime.parse(courseRequestDto.getStartDate()));
         courseToUpdate.setEndDate(OffsetDateTime.parse(courseRequestDto.getEndDate()));
-        courseToUpdate.setDuration(Duration.parse(String.valueOf(courseRequestDto.getDuration())));
-        courseToUpdate.setTuitionFee(BigDecimal.valueOf(courseRequestDto.getTuitionFee()));
+        courseToUpdate.setDuration(courseToUpdate.getDuration());
+        courseToUpdate.setTuitionFee(courseRequestDto.getTuitionFee());
         courseRepository.save(courseToUpdate);
         return CourseMapper.INSTANCE.toDto(courseToUpdate);
     }

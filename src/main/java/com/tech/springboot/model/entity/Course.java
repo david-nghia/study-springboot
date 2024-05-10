@@ -23,17 +23,16 @@ public class Course extends BaseEntity<String> {
     private UUID id;
     @Column(name = "name", unique = true, nullable = false)
     private String name;
-    @Column(name = "description", length = 2000)
+    @Column(name = "description")
     private String description;
     @Column(name = "start_date")
     private OffsetDateTime startDate;
     @Column(name = "end_date")
-
     private OffsetDateTime endDate;
     @Column(name = "duration")
-    private Duration duration;
+    private Long duration;
     @Column(name = "tuition_fee")
-    private BigDecimal tuitionFee;
+    private Long tuitionFee;
 
     @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
     private Set<Enrollment> enrollments = new HashSet<>();

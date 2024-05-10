@@ -41,6 +41,7 @@ public class AuthImpl implements AuthService {
                         authRequestDto.getPassword()
                 )
         );
+
         UserDetails userInfo = userSpringService.loadUserByUsername(authentication.getName());
         return buildAuthResponse(userInfo);
     }
@@ -54,8 +55,15 @@ public class AuthImpl implements AuthService {
 
         // TODO: verify token in redis
 
+        if(tokenStore.isTokenExpired(refreshToken)){
+            throw new BusinessException("Token is expired");
+        }
+
+        if(!tokenStore.currentToken(refreshToken)){
+            throw new BusinessException("Token is not an existing token");
+        }
+
         String username = jwtTokenUtils.getUsernameFromToken(refreshToken);
-        log.info("get username from refresh token successful");
 
         UserDetails userInfo = userSpringService.loadUserByUsername(username);
         return buildAuthResponse(userInfo);
@@ -69,6 +77,9 @@ public class AuthImpl implements AuthService {
         var refreshToken = jwtTokenUtils.genRefreshToken(userInfo);
 
         // TODO: save token to redis
+        Authentication authentication = new UsernamePasswordAuthenticationToken(userInfo,
+                null,userInfo.getAuthorities());
+        tokenStore.storeToken(refreshToken, authentication);
 
         UserResponseDto userResponseDto = UserMapper.INSTANCE.toDTO(userEntity);
         Date date = jwtTokenUtils.getExpirationDateFromToken(accessToken);

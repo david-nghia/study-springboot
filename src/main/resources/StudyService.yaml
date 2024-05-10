@@ -1845,18 +1845,6 @@ paths:
 
 components:
   schemas:
-    Meta:
-      type: object
-      properties:
-        count:
-          type: integer
-        limit:
-          type: integer
-        offset:
-          type: integer
-        totalItem:
-          type: integer
-
     CourseRequestDto:
       type: object
       required:
@@ -1877,8 +1865,10 @@ components:
           type: string
         duration:
           type: integer
+          format: int64
         tuitionFee:
           type: integer
+          format: int64
     CourseResponseDto:
       type: object
       properties:
@@ -1895,8 +1885,10 @@ components:
           type: string
         duration:
           type: integer
+          format: int64
         tuitionFee:
           type: integer
+          format: int64
         createdDate:
           type: string
         modifiedDate:

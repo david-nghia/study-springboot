@@ -18,7 +18,7 @@ public interface CourseMapper {
     @Mapping(source = "createdDate", target = "createdDate", qualifiedByName = "offsetDatetimeToString")
     @Mapping(source = "startDate", target = "startDate", qualifiedByName = "offsetDatetimeToString")
     @Mapping(source = "endDate", target = "endDate", qualifiedByName = "offsetDatetimeToString")
-    @Mapping(source = "duration", target = "duration", qualifiedByName = "durationToInteger")
+//    @Mapping(source = "duration", target = "duration", qualifiedByName = "durationToInteger")
     CourseResponseDto toDto(Course course);
     List<CourseResponseDto> toDtoList(List<Course> courses);
 
@@ -27,8 +27,8 @@ public interface CourseMapper {
         return offsetDateTime.toString();
     }
 
-    @Named("durationToInteger")
-    default Integer durationToInteger(Duration duration){
-        return Integer.parseInt(duration.toString());
-    }
+//    @Named("durationToInteger")
+//    default Integer durationToInteger(Duration duration){
+//        return Integer.parseInt(duration.toString());
+//    }
 }
